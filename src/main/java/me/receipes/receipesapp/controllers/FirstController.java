@@ -13,6 +13,6 @@ public class FirstController {
 
     @GetMapping("/info")
     public String infoPage(){
-        return "Anastasiya Trishkina " + "RecipesApp " + "Приложение для сайта рецептов";
+        return "Анастасия Тришкина " + "RecipesApp " + "Приложение для сайта рецептов";
     }
 }
