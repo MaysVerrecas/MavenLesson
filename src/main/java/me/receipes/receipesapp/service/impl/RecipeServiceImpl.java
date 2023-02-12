@@ -1,12 +1,11 @@
 package me.receipes.receipesapp.service.impl;
 
-import me.receipes.receipesapp.model.Ingredient;
+import me.receipes.receipesapp.exceptions.ValidateException;
 import me.receipes.receipesapp.model.Recipe;
 import me.receipes.receipesapp.service.RecipeService;
+import me.receipes.receipesapp.service.VoidCheckService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -14,11 +13,18 @@ import java.util.TreeMap;
 public class RecipeServiceImpl implements RecipeService {
     private static long recipeId = 0;
     private final Map<Long, Recipe> recipeMap = new TreeMap<>();
+    private final VoidCheckService voidCheckService;
+
+    public RecipeServiceImpl(VoidCheckService voidCheckService) {
+        this.voidCheckService = voidCheckService;
+    }
 
 
     @Override
     public long addRecipe(Recipe recipe) {
-
+        if (!voidCheckService.validateRecipe(recipe)) {
+            throw new ValidateException(recipe.toString());
+        }
         recipeMap.put(recipeId, recipe);
         return recipeId++;
     }
