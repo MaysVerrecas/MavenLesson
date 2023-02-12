@@ -39,10 +39,9 @@ public class IngredientController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Ингридиет найден",
-                    content = {
+                    content =
                     @Content(mediaType = "aplication/json",
-                    array = @ArraySchema(schema = @Schema(implementation = Ingredient.class)))
-                    }
+                    schema = @Schema(implementation = Ingredient.class))
             ),
             @ApiResponse(responseCode = "404", description = "Ингредиент не найден")
     })
@@ -60,10 +59,9 @@ public class IngredientController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Ингридиет найден и изменен",
-                    content = {
-                            @Content(mediaType = "aplication/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = Ingredient.class)))
-                    }
+                    content =
+                    @Content(mediaType = "aplication/json",
+                            schema = @Schema(implementation = Ingredient.class))
             ),
             @ApiResponse(responseCode = "404", description = "Ингредиент не найден")
     })
@@ -82,9 +80,8 @@ public class IngredientController {
             @ApiResponse(responseCode = "200",
                     description = "Ингридиет найден и удален",
                     content =
-                            @Content(mediaType = "aplication/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = Ingredient.class)))
-
+                    @Content(mediaType = "aplication/json",
+                            schema = @Schema(implementation = Ingredient.class))
             ),
             @ApiResponse(responseCode = "404", description = "Ингредиент не найден")
     })
@@ -107,7 +104,8 @@ public class IngredientController {
     @ApiResponse(responseCode = "200",
             description = "Карта ингредиентов получена",
             content = {
-            @Content(mediaType = "aplication/json" ,schema = @Schema(implementation = Ingredient.class))
+            @Content(mediaType = "aplication/json" ,
+                   array = @ArraySchema(schema = @Schema(implementation = Ingredient.class)))
             }
 
     )

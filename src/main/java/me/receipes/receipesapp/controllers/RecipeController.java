@@ -38,10 +38,9 @@ public class RecipeController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Рецепт найден",
-                    content = {
+                    content =
                             @Content(mediaType = "aplication/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = Recipe.class)))
-                    }
+                                    schema = @Schema(implementation = Recipe.class))
             ),
             @ApiResponse(responseCode = "404", description = "Рецепт не найден")
     })
@@ -57,7 +56,8 @@ public class RecipeController {
     @ApiResponse(responseCode = "200",
             description = "Карта рецептов получена",
             content = {
-                    @Content(mediaType = "aplication/json" ,schema = @Schema(implementation = Recipe.class))
+                    @Content(mediaType = "aplication/json" ,
+                            array = @ArraySchema(schema = @Schema(implementation = Recipe.class )))
             }
 
     )
@@ -71,10 +71,9 @@ public class RecipeController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Рецепт найден и изменен",
-                    content = {
+                    content =
                             @Content(mediaType = "aplication/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = Recipe.class)))
-                    }
+                                    schema = @Schema(implementation = Recipe.class))
             ),
             @ApiResponse(responseCode = "404", description = "Рецепт не найден")
     })
@@ -92,10 +91,10 @@ public class RecipeController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Рецепт найден и удален",
-                    content = {
+                    content =
                             @Content(mediaType = "aplication/json",
-                                    array = @ArraySchema(schema = @Schema(implementation = Recipe.class)))
-                    }
+                                    schema = @Schema(implementation = Recipe.class))
+
             ),
             @ApiResponse(responseCode = "404", description = "Рецепт не найден")
     })
