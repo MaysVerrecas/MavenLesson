@@ -13,7 +13,7 @@ import java.util.TreeMap;
 @Service
 public class RecipeServiceImpl implements RecipeService {
     private static long recipeId = 0;
-    private static Map<Long, Recipe> recipeMap = new TreeMap<>();
+    private final Map<Long, Recipe> recipeMap = new TreeMap<>();
 
 
     @Override
@@ -53,6 +53,6 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public void deleteAllRecipes() {
-        recipeMap = new TreeMap<>();
+        recipeMap.clear();
     }
 }

@@ -10,7 +10,7 @@ import java.util.TreeMap;
 @Service
 public class IngredientServiceImpl implements IngredientService {
     private static long ingredientId = 0;
-    private static Map<Long, Ingredient> ingredientMap = new TreeMap<>();
+    private final Map<Long, Ingredient> ingredientMap = new TreeMap<>();
 
     @Override
     public long addIngredient(Ingredient ingredient) {
@@ -45,7 +45,7 @@ public class IngredientServiceImpl implements IngredientService {
 
     @Override
     public void deleteAllIngredients() {
-        ingredientMap = new TreeMap<>();
+        ingredientMap.clear();
     }
 
     @Override
