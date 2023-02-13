@@ -1,7 +1,12 @@
 package me.receipes.receipesapp.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.annotation.PostConstruct;
 import me.receipes.receipesapp.exceptions.ValidateException;
 import me.receipes.receipesapp.model.Ingredient;
+import me.receipes.receipesapp.service.FilesIngredientService;
 import me.receipes.receipesapp.service.IngredientService;
 import me.receipes.receipesapp.service.VoidCheckService;
 import org.springframework.stereotype.Service;
@@ -12,13 +17,20 @@ import java.util.TreeMap;
 @Service
 public class IngredientServiceImpl implements IngredientService {
     private static long ingredientId = 0;
-    private final Map<Long, Ingredient> ingredientMap = new TreeMap<>();
+    private TreeMap<Long, Ingredient> ingredientMap = new TreeMap<>();
     private final VoidCheckService voidCheckService;
+    private final FilesIngredientService filesIngredientService;
 
-    public IngredientServiceImpl(VoidCheckService voidCheckService) {
+    public IngredientServiceImpl(VoidCheckService voidCheckService, FilesIngredientService filesIngredientService) {
         this.voidCheckService = voidCheckService;
+        this.filesIngredientService = filesIngredientService;
     }
 
+    @PostConstruct
+    private void init(){
+
+        readFromFile();
+    }
 
     @Override
     public long addIngredient(Ingredient ingredient) {
@@ -26,6 +38,7 @@ public class IngredientServiceImpl implements IngredientService {
             throw new ValidateException(ingredient.toString());
         }
         ingredientMap.put(ingredientId, ingredient);
+        saveToFile();
         return ingredientId++;
     }
 
@@ -41,6 +54,7 @@ public class IngredientServiceImpl implements IngredientService {
     public Ingredient changeIngredient(long ingredientId, Ingredient newIngredient) {
         if (ingredientMap.containsKey(ingredientId)) {
             ingredientMap.put(ingredientId, newIngredient);
+            saveToFile();
         }
         return null;
     }
@@ -59,7 +73,26 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public Map<Long, Ingredient> showAllIngredient() {
+    public TreeMap<Long, Ingredient> showAllIngredient() {
         return ingredientMap;
+    }
+
+    private void readFromFile() {
+        try {
+            String json = filesIngredientService.readFromFile();
+            ingredientMap = new ObjectMapper().readValue(json, new TypeReference<TreeMap<Long, Ingredient>>() {
+            });
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void saveToFile() {
+        try {
+            String json = new ObjectMapper().writeValueAsString(ingredientMap);
+            filesIngredientService.saveToFile(json);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 }
