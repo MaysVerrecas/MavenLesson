@@ -40,7 +40,7 @@ public class IngredientController {
             @ApiResponse(responseCode = "200",
                     description = "Ингридиет найден",
                     content =
-                    @Content(mediaType = "aplication/json",
+                    @Content(mediaType = "application/json",
                     schema = @Schema(implementation = Ingredient.class))
             ),
             @ApiResponse(responseCode = "404", description = "Ингредиент не найден")
@@ -60,7 +60,7 @@ public class IngredientController {
             @ApiResponse(responseCode = "200",
                     description = "Ингридиет найден и изменен",
                     content =
-                    @Content(mediaType = "aplication/json",
+                    @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Ingredient.class))
             ),
             @ApiResponse(responseCode = "404", description = "Ингредиент не найден")
@@ -80,7 +80,7 @@ public class IngredientController {
             @ApiResponse(responseCode = "200",
                     description = "Ингридиет найден и удален",
                     content =
-                    @Content(mediaType = "aplication/json",
+                    @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Ingredient.class))
             ),
             @ApiResponse(responseCode = "404", description = "Ингредиент не найден")
@@ -104,7 +104,7 @@ public class IngredientController {
     @ApiResponse(responseCode = "200",
             description = "Карта ингредиентов получена",
             content = {
-            @Content(mediaType = "aplication/json" ,
+            @Content(mediaType = "application/json" ,
                    array = @ArraySchema(schema = @Schema(implementation = Ingredient.class)))
             }
 

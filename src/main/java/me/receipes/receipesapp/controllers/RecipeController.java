@@ -39,7 +39,7 @@ public class RecipeController {
             @ApiResponse(responseCode = "200",
                     description = "Рецепт найден",
                     content =
-                            @Content(mediaType = "aplication/json",
+                            @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = Recipe.class))
             ),
             @ApiResponse(responseCode = "404", description = "Рецепт не найден")
@@ -56,7 +56,7 @@ public class RecipeController {
     @ApiResponse(responseCode = "200",
             description = "Карта рецептов получена",
             content = {
-                    @Content(mediaType = "aplication/json" ,
+                    @Content(mediaType = "application/json" ,
                             array = @ArraySchema(schema = @Schema(implementation = Recipe.class )))
             }
 
@@ -72,7 +72,7 @@ public class RecipeController {
             @ApiResponse(responseCode = "200",
                     description = "Рецепт найден и изменен",
                     content =
-                            @Content(mediaType = "aplication/json",
+                            @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = Recipe.class))
             ),
             @ApiResponse(responseCode = "404", description = "Рецепт не найден")
@@ -92,7 +92,7 @@ public class RecipeController {
             @ApiResponse(responseCode = "200",
                     description = "Рецепт найден и удален",
                     content =
-                            @Content(mediaType = "aplication/json",
+                            @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = Recipe.class))
 
             ),
