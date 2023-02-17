@@ -1,6 +1,7 @@
 package me.receipes.receipesapp.service;
 
 import java.io.File;
+import java.nio.file.Path;
 
 public interface FilesRecipeService {
     boolean saveToFile(String json);
@@ -10,4 +11,8 @@ public interface FilesRecipeService {
     File getDataFile();
 
     boolean cleanRecipeDataFile();
+
+    Path returnPath();
+
+    File getRecipeDataFile();
 }

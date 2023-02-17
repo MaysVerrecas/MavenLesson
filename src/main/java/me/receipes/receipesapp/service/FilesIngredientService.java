@@ -11,4 +11,6 @@ public interface FilesIngredientService {
     File getDataFile();
 
     boolean cleanRecipeDataFile();
+
+    File getRecipeDataFile();
 }

@@ -33,7 +33,7 @@ public class FilesRecipeServiceImpl implements FilesRecipeService {
     @Override
     public String readFromFile() {
         try {
-            return Files.readString(Path.of(pathDataFile,nameDataFile));
+            return Files.readString(Path.of(pathDataFile, nameDataFile));
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -68,5 +68,20 @@ public class FilesRecipeServiceImpl implements FilesRecipeService {
             e.printStackTrace();
             return false;
         }
+    }
+    @Override
+    public Path returnPath(){
+        Path path = Path.of(pathDataFile, nameDataFile);
+        try {
+            Files.deleteIfExists(path);
+            Files.createFile(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return path;
+    }
+    @Override
+    public File getRecipeDataFile() {
+        return new File(pathDataFile + "/" + nameDataFile);
     }
 }

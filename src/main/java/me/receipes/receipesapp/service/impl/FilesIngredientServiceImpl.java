@@ -67,4 +67,8 @@ public class FilesIngredientServiceImpl implements FilesIngredientService {
             return false;
         }
     }
+    @Override
+    public File getRecipeDataFile() {
+        return new File(pathDataFile + "/" + nameDataFile);
+    }
 }
