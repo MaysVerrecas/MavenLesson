@@ -119,10 +119,10 @@ public class RecipeServiceImpl implements RecipeService {
         return str + "\n";
     }
 
-    public String showPreparingStepsForSaveToFile(List<Step> steps){
+    public String showPreparingStepsForSaveToFile(List<Recipe.Step> steps){
         int counter = 0;
         String str = "";
-        for (Step step : steps) {
+        for (Recipe.Step step : steps) {
             counter++;
             str += ("" + counter + " " + step.getAction() + "\n");
         }
@@ -151,13 +151,7 @@ public class RecipeServiceImpl implements RecipeService {
         private Map<Long, Recipe> recipes;
     }
 
-    @Data
-    @NoArgsConstructor
-    public class Step {
 
-        private String name;
-        private String action;
-    }
 
 
 }

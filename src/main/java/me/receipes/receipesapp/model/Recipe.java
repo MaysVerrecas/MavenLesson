@@ -13,9 +13,9 @@ public class Recipe {
     private String name;
     private int cookingTime;
     private List<Ingredient> ingredients;
-    private List<RecipeServiceImpl.Step> cookingSteps;
+    private List<Step> cookingSteps;
 
-    public Recipe(String name, int cookingTime, List<Ingredient> ingredientList, List<RecipeServiceImpl.Step> cookingSteps) {
+    public Recipe(String name, int cookingTime, List<Ingredient> ingredientList, List<Step> cookingSteps) {
         this.name = name;
         if (cookingTime > 0) {
             this.cookingTime = cookingTime;
@@ -24,6 +24,13 @@ public class Recipe {
         }
         this.ingredients = ingredientList;
         this.cookingSteps = cookingSteps;
+    }
+    @Data
+    @NoArgsConstructor
+    public class Step {
+
+        private String name;
+        private String action;
     }
 
 }
