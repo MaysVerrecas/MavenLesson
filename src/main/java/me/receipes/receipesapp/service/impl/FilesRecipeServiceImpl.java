@@ -14,6 +14,9 @@ public class FilesRecipeServiceImpl implements FilesRecipeService {
     @Value("${name.to.data2.file}")
     private String nameDataFile;
 
+    @Value("${name.to.data3.file}")
+    private String nameTempFile;
+
     @Value("${path.to.data.file}")
     private String pathDataFile;
 
@@ -71,7 +74,7 @@ public class FilesRecipeServiceImpl implements FilesRecipeService {
     }
     @Override
     public Path returnPath(){
-        Path path = Path.of(pathDataFile, nameDataFile);
+        Path path = Path.of(pathDataFile, nameTempFile);
         try {
             Files.deleteIfExists(path);
             Files.createFile(path);
