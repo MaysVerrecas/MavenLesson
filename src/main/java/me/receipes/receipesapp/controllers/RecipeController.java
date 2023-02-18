@@ -9,9 +9,16 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import me.receipes.receipesapp.model.Recipe;
 import me.receipes.receipesapp.service.RecipeService;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Map;
 
 @RestController
@@ -77,7 +84,7 @@ public class RecipeController {
             ),
             @ApiResponse(responseCode = "404", description = "Рецепт не найден")
     })
-    public ResponseEntity changeRecipe(@PathVariable long id, @RequestBody Recipe newRecipe) {
+    public ResponseEntity<Recipe> changeRecipe(@PathVariable long id, @RequestBody Recipe newRecipe) {
         Recipe recipe = recipeService.changeRecipe(id, newRecipe);
         if (recipe == null) {
             return ResponseEntity.notFound().build();
@@ -111,6 +118,44 @@ public class RecipeController {
     public ResponseEntity<Void> deleteAllRecipes() {
         recipeService.deleteAllRecipes();
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/download")
+    @Operation(
+            summary = "Скачать файл",
+            description = "скачать файл отформатированный для удобного чтения"
+    )
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "файл сформирован и готов к скачиванию"
+            ),
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "файл пуст, нет сохраненных рецептов"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "ошибка со стороны сервера"
+            )
+    })
+    public ResponseEntity<Object> download() {
+        try {
+            Path path = recipeService.createRecipeFileByTemplate();
+            if (Files.size(path) != 0) {
+                InputStreamResource ios = new InputStreamResource(new FileInputStream(path.toFile()));
+                return ResponseEntity.ok()
+                        .contentType(MediaType.TEXT_PLAIN)
+                        .contentLength(Files.size(path))
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + "recipe.txt\"")
+                        .body(ios);
+            } else {
+                return ResponseEntity.noContent().build();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
     }
 
 }
