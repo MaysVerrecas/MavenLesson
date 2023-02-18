@@ -139,7 +139,7 @@ public class RecipeController {
                     description = "ошибка со стороны сервера"
             )
     })
-    public ResponseEntity<Object> download() {
+    public ResponseEntity<InputStreamResource> download() {
         try {
             Path path = recipeService.createRecipeFileByTemplate();
             if (Files.size(path) != 0) {
